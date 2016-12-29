@@ -1,41 +1,38 @@
 package com.example.shikhar.tellmemore2;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by Shikhar on 29-12-2016.
  */
+public class splash extends Activity {
+    private static boolean splashLoaded = false;
 
-public class splash extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
 
-        Thread timerThread = new Thread(){
-            public void run(){
-                try{
-                    sleep(3000);
-                }catch(InterruptedException e){
-                    e.printStackTrace();
-                }finally{
-                    Intent intent = new Intent(splash.this,MainActivity.class);
-                    startActivity(intent);
+        if (!splashLoaded) {
+            setContentView(R.layout.splash);
+            int secondsDelayed = 6;
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    startActivity(new Intent(splash.this, MainActivity.class));
+                    finish();
                 }
-            }
-        };
-        timerThread.start();
-    }
+            }, secondsDelayed * 500);
 
-    @Override
-    protected void onPause() {
-        // TODO Auto-generated method stub
-        super.onPause();
-        finish();
+            splashLoaded = true;
+        }
+        else {
+            Intent goToMainActivity = new Intent(splash.this, MainActivity.class);
+            goToMainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(goToMainActivity);
+            finish();
+        }
     }
-
 }
-
