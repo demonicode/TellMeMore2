@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-public class
 public class MainActivity extends AppCompatActivity {
 
     private CoordinatorLayout mContainer;
@@ -26,25 +25,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (!havePermissions()) {
-            Log.i(TAG, "Requesting permissions needed for this app.");
-            requestPermissions();
-        }
+        Intent i= new Intent(MainActivity.this, splash.class);
+        startActivity(i);
 
-        if(!isBlueEnable()){
-            Intent bluetoothIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(bluetoothIntent);
-        }
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-
-        mContainer = (LinearLayout) findViewById(R.id.activity_main);
-
-        ImageView photo = (ImageView)findViewById(R.id.falana);
-        ScrollingView info = (ScrollingView)findViewById(R.id.falana);
-
-        
 
     }
     private boolean isBlueEnable() {
